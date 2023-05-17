@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_flutter_camp_2023_app_cinco/infraestructure/models/pixabay_result_model.dart';
+import 'package:gdsc_flutter_camp_2023_app_cinco/presentation/widgets/text_tag_widget.dart';
 
 class CardPixabayWidget extends StatelessWidget {
   const CardPixabayWidget({
@@ -26,7 +27,7 @@ class CardPixabayWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.0),
             child: FadeInImage(
               width: double.infinity,
-              height: 225,
+              height: 275,
               placeholder: const AssetImage('assets/loading.gif'),
               image: NetworkImage(
                 hit.webformatUrl,
@@ -36,35 +37,61 @@ class CardPixabayWidget extends StatelessWidget {
           ),
           Container(
             color: Colors.white54,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              //crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: Column(
               children: [
-                TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.thumb_up,
-                    size: 24.0,
-                    color: Colors.blue,
-                  ),
-                  label: Text(
-                    hit.likes.toString(),
-                    style: const TextStyle(
-                        color: Colors.black54, fontWeight: FontWeight.w900),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(hit.userImageUrl),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.thumb_up,
+                        size: 24.0,
+                        color: Colors.blue,
+                      ),
+                      label: Text(
+                        hit.likes.toString(),
+                        style: const TextStyle(
+                            color: Colors.black54, fontWeight: FontWeight.w900),
+                      ),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.remove_red_eye,
+                        size: 24.0,
+                        color: Colors.teal,
+                      ),
+                      label: Text(
+                        hit.views.toString(),
+                        style: const TextStyle(
+                            color: Colors.black54, fontWeight: FontWeight.w900),
+                      ),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.download,
+                        size: 24.0,
+                        color: Colors.indigo,
+                      ),
+                      label: Text(
+                        hit.downloads.toString(),
+                        style: const TextStyle(
+                            color: Colors.black54, fontWeight: FontWeight.w900),
+                      ),
+                    ),
+                  ],
                 ),
-                TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.comment,
-                    size: 24.0,
-                    color: Colors.teal,
-                  ),
-                  label: Text(
-                    hit.views.toString(),
-                    style: const TextStyle(
-                        color: Colors.black54, fontWeight: FontWeight.w900),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (var tag in hit.tags.split(","))
+                      Flexible(child: TextTagWidget(text: tag.trim())),
+                  ],
                 ),
               ],
             ),

@@ -72,31 +72,38 @@ class Hit {
   });
 
   factory Hit.fromJson(Map<String, dynamic> json) => Hit(
-        id: json["id"] ?? -1,
-        pageUrl: json["pageURL"] ??
-            'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930',
-        type: json["type"] ?? '-',
-        tags: json["tags"] ?? '-',
-        previewUrl: json["previewURL"] ?? '-',
-        previewWidth: json["previewWidth"] ?? '-',
-        previewHeight: json["previewHeight"] ?? '-',
-        webformatUrl: json["webformatURL"] ,
-        webformatWidth: json["webformatWidth"] ?? '-',
-        webformatHeight: json["webformatHeight"] ?? '-',
-        largeImageUrl: json["largeImageURL"] ??
-            'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930',
-        imageWidth: json["imageWidth"] ?? '-',
-        imageHeight: json["imageHeight"] ?? '-',
-        imageSize: json["imageSize"] ?? '-',
-        views: json["views"] ?? '-',
-        downloads: json["downloads"] ?? '-',
-        collections: json["collections"] ?? '-',
-        likes: json["likes"] ?? '-',
-        comments: json["comments"] ?? '-',
-        userId: json["userId"] ?? -1,
-        user: json["user"] ?? '-',
-        userImageUrl: json["userImageURL"] ??
-            'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930',
+        id: json["id"] ?? 0,
+        pageUrl: Uri.parse(json["pageURL"]).isAbsolute
+            ? json["pageURL"]
+            : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930',
+        type: json["type"] ?? 'Sin Tipo',
+        tags: json["tags"] ?? 'Sin Tags',
+        previewUrl: Uri.parse(json["previewURL"]).isAbsolute
+            ? json["previewURL"]
+            : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930',
+        previewWidth: json["previewWidth"] ?? 0,
+        previewHeight: json["previewHeight"] ?? 0,
+        webformatUrl: Uri.parse(json["webformatURL"]).isAbsolute
+            ? json["webformatURL"]
+            : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930',
+        webformatWidth: json["webformatWidth"] ?? 0,
+        webformatHeight: json["webformatHeight"] ?? 0,
+        largeImageUrl: Uri.parse(json["largeImageURL"]).isAbsolute
+            ? json["largeImageURL"]
+            : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930',
+        imageWidth: json["imageWidth"] ?? 0,
+        imageHeight: json["imageHeight"] ?? 0,
+        imageSize: json["imageSize"] ?? 0,
+        views: json["views"] ?? 0,
+        downloads: json["downloads"] ?? 0,
+        collections: json["collections"] ?? 0,
+        likes: json["likes"] ?? 0,
+        comments: json["comments"] ?? 0,
+        userId: json["userId"] ?? 0,
+        user: json["user"] ?? 'Sin Usuario',
+        userImageUrl: Uri.parse(json["userImageURL"]).isAbsolute
+            ? json["userImageURL"]
+            : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930',
       );
 
   Map<String, dynamic> toJson() => {

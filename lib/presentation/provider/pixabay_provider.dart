@@ -12,6 +12,7 @@ class PixabayProvider extends ChangeNotifier {
   Future<PixabayResult> searchImagesPixabay(query) async {
     print("PIXABAY PROVIDER");
     final response = await http.get(Uri.parse("$url&q=$query"));
+    //print("PIXABAY URL $url&q=$query");
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.

@@ -9,7 +9,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String queryUrl;
     final pixabayData = Provider.of<PixabayProvider>(context);
     return Scaffold(
       appBar: AppBar(
@@ -33,6 +32,19 @@ class _ListPixabayImages extends StatefulWidget {
 
 class _ListPixabayImagesState extends State<_ListPixabayImages> {
   String queryUrl = 'cat';
+  final _textEditController = TextEditingController();
+  final _focusNode = FocusNode();
+
+  // This function is triggered when the clear buttion is pressed
+  void _clearTextField() {
+    // Clear everything in the text field
+    _textEditController.clear();
+    _focusNode.requestFocus();
+    // Call setState to update the UI
+    setState(() {
+      queryUrl = 'cat';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,25 +54,31 @@ class _ListPixabayImagesState extends State<_ListPixabayImages> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
-            decoration: const InputDecoration(
-                filled: true,
-                fillColor: Colors.greenAccent,
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.black,
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0, color: Colors.greenAccent),
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0, color: Colors.greenAccent),
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                hintText: 'Escriba que imagen busca',
-                hintStyle: TextStyle(
-                    //fontWeight: FontWeight.w500,
-                    )),
+            controller: _textEditController,
+            focusNode: _focusNode,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.greenAccent,
+              prefixIcon: const Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
+              suffixIcon: _textEditController.text.isEmpty
+                  ? null // Show nothing if the text field is empty
+                  : IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: _clearTextField,
+                    ), // Show the clear button if the text field has something
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(width: 0, color: Colors.greenAccent),
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(width: 0, color: Colors.greenAccent),
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              hintText: 'Escriba que imagen busca',
+            ),
             onSubmitted: (String value) {
               setState(() {
                 queryUrl = value;
@@ -80,6 +98,7 @@ class _ListPixabayImagesState extends State<_ListPixabayImages> {
                 } else {
                   PixabayResult pixabayResult = snapshot.data;
                   return ListView.separated(
+                    key: ObjectKey(pixabayResult.hits[0].id),
                     separatorBuilder: (context, index) {
                       return const Divider();
                     },

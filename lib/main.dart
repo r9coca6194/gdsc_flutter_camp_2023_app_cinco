@@ -7,16 +7,7 @@ import 'package:gdsc_flutter_camp_2023_app_cinco/presentation/provider/pixabay_p
 import 'package:gdsc_flutter_camp_2023_app_cinco/presentation/screens/home_page.dart';
 import 'package:provider/provider.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  ByteData data =
-      await PlatformAssetBundle().load('assets/ca/lets-encrypt-r3.pem');
-  SecurityContext.defaultContext
-      .setTrustedCertificatesBytes(data.buffer.asUint8List());
-
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
