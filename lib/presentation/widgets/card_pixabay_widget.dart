@@ -40,7 +40,7 @@ class CardPixabayWidget extends StatelessWidget {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
                       backgroundImage: NetworkImage(hit.userImageUrl),

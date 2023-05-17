@@ -97,19 +97,41 @@ class _ListPixabayImagesState extends State<_ListPixabayImages> {
                   return const Center(child: CircularProgressIndicator());
                 } else {
                   PixabayResult pixabayResult = snapshot.data;
-                  return ListView.separated(
-                    key: ObjectKey(pixabayResult.hits[0].id),
-                    separatorBuilder: (context, index) {
-                      return const Divider();
-                    },
-                    itemCount: pixabayResult.hits.isEmpty
-                        ? 0
-                        : pixabayResult.hits.length,
-                    itemBuilder: (context, index) {
-                      Hit hit = pixabayResult.hits[index];
-                      return CardPixabayWidget(hit: hit);
-                    },
-                  );
+                  if (pixabayResult.hits.isNotEmpty) {
+                    return ListView.separated(
+                      key: ObjectKey(pixabayResult.hits[0].id),
+                      separatorBuilder: (context, index) {
+                        return const Divider();
+                      },
+                      itemCount: pixabayResult.hits.isEmpty
+                          ? 0
+                          : pixabayResult.hits.length,
+                      itemBuilder: (context, index) {
+                        Hit hit = pixabayResult.hits[index];
+                        return CardPixabayWidget(hit: hit);
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            '¡Lo sentimos!',
+                            style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green,
+                            ),
+                          ),
+                          Text(
+                            'No hemos encontrado coincidencias',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
                 }
               }),
         ),
